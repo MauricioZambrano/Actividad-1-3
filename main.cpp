@@ -1,8 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
+using namespace std;
 
-void cargaDatosFechas(Video *listaVideos[], int &cantFechas){
+void cargaDatosFechas(vector <Fecha> &listaFechas, int &cantFechas){
     string mes;
     int dia;
     string hora;
@@ -10,7 +12,7 @@ void cargaDatosFechas(Video *listaVideos[], int &cantFechas){
     string razonDeFalla;
     
     ifstream archivo;
-    archivo.open("datosVids.txt");
+    archivo.open("bitacora.txt");
     
     cantFechas = 0;
     while(archivo >> mes)
@@ -26,7 +28,7 @@ void cargaDatosFechas(Video *listaVideos[], int &cantFechas){
 }
 
 int main(){
-    Fecha *listaFechas[100];
+    vector<Fecha> listaFechas;
     int cantFechas;
 
     cargaDatosFechas(listaFechas, cantFechas);
