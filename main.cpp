@@ -27,6 +27,6 @@ void cargaRegistros(vector<Registro*> &vecRegistros){
 }
 
 int main(){
-    vector<Registro> vecRegistros;
+    vector<Registro*> vecRegistros;
     cargaRegistros(vecRegistros);
 }
