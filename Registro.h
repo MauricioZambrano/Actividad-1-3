@@ -14,7 +14,7 @@ public:
     int crearClave(string, int);
     string getMes();
     int getDia();
-    int getClave();
+    int getClaveOrden();
     bool operator<(Registro);
     bool operator>(Registro);
 };
@@ -49,19 +49,19 @@ int Registro::getDia(){
     return dia;
 }
 
-int Registro::getClave(){
-    return clave;
+int Registro::getClaveOrden(){
+    return claveOrden;
 }
 
-bool Registro::Operator<(Registro r){
-    if(claveOrden < r.ClaveOrden)
+bool Registro::operator<(Registro r){
+    if(claveOrden < r.claveOrden)
         return true;
 
     return false;
 }
 
-bool Registro::Operator>(Registro r){
-    if(claveOrden > r.ClaveOrden)
+bool Registro::operator>(Registro r){
+    if(claveOrden > r.claveOrden)
         return true;
 
     return false;
