@@ -2,6 +2,9 @@
 #include <fstream>
 #include <string>
 #include <vector>
+
+#include "Registro.h"
+
 using namespace std;
 
 void cargaDatosFechas(vector <Fecha> &listaFechas, int &cantFechas){
