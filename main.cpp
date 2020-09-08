@@ -3,27 +3,23 @@
 #include <string>
 #include <vector>
 
-#include "Registro.h"
-
 using namespace std;
 
-void cargaDatosFechas(vector <Fecha> &listaFechas, int &cantFechas){
+#include "Registro.h"
+
+void cargaRegistros(vector<Registro> &vecRegistros){
     string mes;
     int dia;
     string hora;
-    string direccion;
-    string razonDeFalla;
+    string direccionIP;
+    string razon;
     
     ifstream archivo;
     archivo.open("bitacora.txt");
     
-    cantFechas = 0;
-    while(archivo >> mes)
-        {
-             archivo >> mes >> dia >> hora >> direccion >> razonDeFalla;
-             listaFechas[cantFechas] = new Fecha(mes, dia, hora, direccion, razonDeFalla);
-        }
-        cantFechas++;
+    while(archivo >> mes){
+        archivo >> mes >> dia >> hora >> direccionIP >> razon;
+        vecRegistros.push_back(new Registro(mes, dia, hora, direccionIP, razon));
     }
     
     archivo.close();
@@ -31,8 +27,6 @@ void cargaDatosFechas(vector <Fecha> &listaFechas, int &cantFechas){
 }
 
 int main(){
-    vector<Fecha> listaFechas;
-    int cantFechas;
-
-    cargaDatosFechas(listaFechas, cantFechas);
+    vector<Registro> vecRegistros;
+    cargaRegistros(vecRegistros);
 }
