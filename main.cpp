@@ -95,11 +95,41 @@ int main(){
     int diaI, diaF;
     string mesI, mesF;
 
-    cout << "Fecha inicial: (ej. aug 10)" << endl;
-    cin >> mesI >> diaI;
+    char opcion;
 
-    cout << endl << "Fecha Final: " << endl;
-    cin >> mesF >> diaF;
+    cout << "Bienvenid@ a la Bitacora de Errores! Seleccione la acción que desea ejectuar:" << endl;
+    cout << "1) Ordenar información de bitacora" << endl;
+    cout << "2) Buscar un rango de datos basado en fechas" << endl;
+    cout << "3) Transpasar datos ordenados a nuevo archivo" << endl;
+    cout << "0) Salir" << endl;
+    do{
+    
+    cin >> opcion;
 
-    busqueda(vecRegistros, mesI, mesF, diaI, diaF);
+    switch(opcion){
+        case '1':{ //Ordena información
+
+            break;
+        }
+        case '2':{ //Busqueda
+            cout << "Fecha inicial: (ej. aug 10)" << endl;
+            cin >> mesI >> diaI;
+
+            cout << endl << "Fecha Final: " << endl;
+            cin >> mesF >> diaF;
+
+            busqueda(vecRegistros, mesI, mesF, diaI, diaF);
+            break;
+        }
+        case '3':{  //Almanecar datos ordenados en archivo nuevo
+
+            break;
+        }
+    }
+
+    } while( opcion != '0');
+
+
+
+    return 0;
 }
