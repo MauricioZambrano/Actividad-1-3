@@ -7,7 +7,7 @@ using namespace std;
 
 #include "Registro.h"
 
-void cargaRegistros(vector<Registro> &vecRegistros){
+void cargaRegistros(vector<Registro*> &vecRegistros){
     string mes;
     int dia;
     string hora;
