@@ -3,9 +3,10 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 #include "Registro.h"
 
-using namespace std;
 
 void cargaRegistros(vector<Registro*> &vecRegistros){
     string mes;
@@ -44,27 +45,25 @@ int busqeudaBinariaIni(vector<Registro> v, int dato, bool inicio ){
 
     bool flag;
 
-    cantBB = 0;
-
     while (ini <= fin){
         mit = (ini + fin) / 2;
-        cantBB++;
-        if (v[mit] == dato){
+
+        if (v[mit].getClaveOrden() == dato){
             if(inicio && flag == true){
-                while(v[mit].getClave() == dato){
+                while(v[mit].getClaveOrden() == dato){
                     mit--;
                 }
                 flag = false;
             }
-            else if(!inicio flag == true){
-                while(v[mit].getClave() == dato){
+            else if(!inicio && flag == true){
+                while(v[mit].getClaveOrden() == dato){
                     mit++;
                 }
                 flag = false;
             }
             return mit;
         }
-        else if(v[mit] > dato){
+        else if(v[mit].getClaveOrden() > dato){
             fin = mit - 1;
         }
         else{
@@ -75,10 +74,6 @@ int busqeudaBinariaIni(vector<Registro> v, int dato, bool inicio ){
 
 }
 
-void imprime(Registro dato){
-    cout << dato.getMes() << " " << dato.getDia() << " " << dato.getHora() << " " << dato.getIp() << " " dato.getRazon() << endl;
-}
-
 void busqueda(vector<Registro> vec, string mesI, string mesF, int diaI, int diaF){
     int ini = clave(mesI, diaI), posInicial;
     int fin = clave(mesF, diaF), posFinal;
@@ -87,7 +82,7 @@ void busqueda(vector<Registro> vec, string mesI, string mesF, int diaI, int diaF
     posFinal = busqeudaBinariaIni(vec, fin, false);
 
     for(int i = posInicial; i<posFinal; i++){
-        imprime(vec[i]);
+        cout <<  vec[i];
     }
 
 }
@@ -98,11 +93,14 @@ int main(){
     cargaRegistros(vecRegistros);
 
 
-    cout << "Fecha inicial: (ej. ago 10)" << endl;
+    int diaI, diaF;
+    string mesI, mesF;
+
+    cout << "Fecha inicial: (ej. aug 10)" << endl;
     cin >> mesI >> diaI;
 
     cout << endl << "Fecha Final: " << endl;
     cin >> mesF >> diaF;
 
-    busqueda(listaFechas, mesI, mesF, diaI, diaF);
+    busqueda(vecRegistros, mesI, mesF, diaI, diaF);
 }
