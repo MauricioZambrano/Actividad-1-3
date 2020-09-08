@@ -29,7 +29,7 @@ void cargaRegistros(vector<Registro*> &vecRegistros){
 
 int clave(string mes, int dia){
     if(mes == "Jun")
-            return 600 + dia;
+        return 600 + dia;
     if(mes == "Jul")
         return 700 + dia;
     if(mes == "Aug")
@@ -40,7 +40,7 @@ int clave(string mes, int dia){
     return 1000 + dia;
 }
 
-int busqeudaBinariaIni(vector<Registro> v, int dato, bool inicio ){
+int busqeudaBinariaIni(vector<Registro*> v, int dato, bool inicio ){
     int ini = 0, fin = v.size() - 1,  mit;
 
     bool flag;
@@ -48,22 +48,22 @@ int busqeudaBinariaIni(vector<Registro> v, int dato, bool inicio ){
     while (ini <= fin){
         mit = (ini + fin) / 2;
 
-        if (v[mit].getClaveOrden() == dato){
+        if (*v[mit] == dato){
             if(inicio && flag == true){
-                while(v[mit].getClaveOrden() == dato){
+                while(*v[mit] == dato){
                     mit--;
                 }
                 flag = false;
             }
             else if(!inicio && flag == true){
-                while(v[mit].getClaveOrden() == dato){
+                while(*v[mit] == dato){
                     mit++;
                 }
                 flag = false;
             }
             return mit;
         }
-        else if(v[mit].getClaveOrden() > dato){
+        else if(*v[mit] > dato){
             fin = mit - 1;
         }
         else{
@@ -74,7 +74,7 @@ int busqeudaBinariaIni(vector<Registro> v, int dato, bool inicio ){
 
 }
 
-void busqueda(vector<Registro> vec, string mesI, string mesF, int diaI, int diaF){
+void busqueda(vector<Registro*> vec, string mesI, string mesF, int diaI, int diaF){
     int ini = clave(mesI, diaI), posInicial;
     int fin = clave(mesF, diaF), posFinal;
 

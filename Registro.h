@@ -17,6 +17,7 @@ public:
     int getClaveOrden();
     bool operator<(int);
     bool operator>(int);
+    bool operator==(int);
     friend ostream& operator<<(ostream&, Registro);
 };
 
@@ -63,6 +64,13 @@ bool Registro::operator<(int n){
 
 bool Registro::operator>(int n){
     if(claveOrden > n)
+        return true;
+
+    return false;
+}
+
+bool Registro::operator==(int n){
+    if(claveOrden == n)
         return true;
 
     return false;
