@@ -43,7 +43,7 @@ string Registro::getMes(){
     return mes;
 }
 
-int Regsitro::getDia(){
+int Registro::getDia(){
     return dia;
 }
 
