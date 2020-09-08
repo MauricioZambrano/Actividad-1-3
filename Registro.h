@@ -15,9 +15,9 @@ public:
     string getMes();
     int getDia();
     int getClaveOrden();
-    void print();
     bool operator<(Registro);
     bool operator>(Registro);
+    friend ostream& operator<<(ostream&, Registro);
 };
 
 Registro::Registro(string mes, int dia, string hora, string direccionIP, string razon){
@@ -54,10 +54,6 @@ int Registro::getClaveOrden(){
     return claveOrden;
 }
 
-void Registro::print(){
-    cout << mes << ' ' << dia ' ' << hora << ' ' << direccionIP << ' ' << razon << endl;
-}
-
 bool Registro::operator<(Registro r){
     if(claveOrden < r.claveOrden)
         return true;
@@ -70,6 +66,12 @@ bool Registro::operator>(Registro r){
         return true;
 
     return false;
+}
+
+ostream& operator<<(ostream& os, Registro r){
+    os  << r.mes << ' ' << r.dia << ' ' << r.hora << ' ' << r.direccionIP << ' ' << r.razon << endl;
+
+    return os;
 }
 
 #endif
