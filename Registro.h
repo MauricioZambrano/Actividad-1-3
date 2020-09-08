@@ -15,6 +15,8 @@ public:
     string getMes();
     int getDia();
     int getClave();
+    bool operator<(Registro);
+    bool operator>(Registro);
 };
 
 Registro::Registro(string mes, int dia, string hora, string direccionIP, string razon){
@@ -49,6 +51,20 @@ int Registro::getDia(){
 
 int Registro::getClave(){
     return clave;
+}
+
+bool Registro::Operator<(Registro r){
+    if(claveOrden < r.ClaveOrden)
+        return true;
+
+    return false;
+}
+
+bool Registro::Operator>(Registro r){
+    if(claveOrden > r.ClaveOrden)
+        return true;
+
+    return false;
 }
 
 #endif
