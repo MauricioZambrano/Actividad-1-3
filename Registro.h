@@ -15,6 +15,7 @@ public:
     string getMes();
     int getDia();
     int getClaveOrden();
+    void print();
     bool operator<(Registro);
     bool operator>(Registro);
 };
@@ -51,6 +52,10 @@ int Registro::getDia(){
 
 int Registro::getClaveOrden(){
     return claveOrden;
+}
+
+void Registro::print(){
+    cout << mes << ' ' << dia ' ' << hora << ' ' << direccionIP << ' ' << razon << endl;
 }
 
 bool Registro::operator<(Registro r){
