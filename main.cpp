@@ -15,8 +15,7 @@ void cargaRegistros(vector<Registro*> &vecRegistros){
     string direccionIP;
     string razon;
     
-    ifstream archivo;
-    archivo.open("bitacora.txt");
+    ifstream archivo("bitacora.txt");
     
     while(archivo >> mes >> dia >> hora >> direccionIP){
         getline(archivo, razon);
@@ -86,14 +85,21 @@ void busqueda(vector<Registro*> vec, string mesI, string mesF, int diaI, int dia
 
 }
 
+void exportarRegistros(vector<Registro*> vecRegistros, string nombreArchivo){
+    ofstream archivo(nombreArchivo, ofstream::app);
+
+    for(int i = 0; i < vecRegistros.size(); i++)
+        archivo << *vecRegistros[i];
+
+    archivo.close();
+}
 
 int main(){
     vector<Registro*> vecRegistros;
     cargaRegistros(vecRegistros);
 
-
     int diaI, diaF;
-    string mesI, mesF;
+    string mesI, mesF, nombreArchivo;
 
     char opcion;
 
@@ -132,4 +138,10 @@ int main(){
 
 
     return 0;
+    busqueda(vecRegistros, mesI, mesF, diaI, diaF);
+
+    cout << "Tecléa el nombre del archivo en el que deseas almacenar los registros ordenados: ";
+    cin >> nombreArchivo;
+    exportarRegistros(vecRegistros, nombreArchivo);
+
 }
