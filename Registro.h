@@ -77,7 +77,7 @@ bool Registro::operator==(int n){
 }
 
 ostream& operator<<(ostream& os, Registro r){
-    os  << r.mes << ' ' << r.dia << ' ' << r.hora << ' ' << r.direccionIP << ' ' << r.razon << endl;
+    os  << r.mes << ' ' << r.dia << ' ' << r.hora << ' ' << r.direccionIP << r.razon << endl;
 
     return os;
 }

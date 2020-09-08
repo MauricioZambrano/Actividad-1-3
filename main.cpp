@@ -18,13 +18,12 @@ void cargaRegistros(vector<Registro*> &vecRegistros){
     ifstream archivo;
     archivo.open("bitacora.txt");
     
-    while(archivo >> mes){
-        archivo >> mes >> dia >> hora >> direccionIP >> razon;
+    while(archivo >> mes >> dia >> hora >> direccionIP){
+        getline(archivo, razon);
         vecRegistros.push_back(new Registro(mes, dia, hora, direccionIP, razon));
     }
     
-    archivo.close();
-    
+    archivo.close();  
 }
 
 int clave(string mes, int dia){
@@ -43,7 +42,7 @@ int clave(string mes, int dia){
 int busqeudaBinariaIni(vector<Registro*> v, int dato, bool inicio ){
     int ini = 0, fin = v.size() - 1,  mit;
 
-    bool flag;
+    bool flag = true;
 
     while (ini <= fin){
         mit = (ini + fin) / 2;
