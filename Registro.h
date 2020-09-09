@@ -15,7 +15,8 @@ public:
     string getMes();
     int getDia();
     int getClaveOrden();
-    bool operator<(int);
+    bool operator<=(Registro);
+    bool operator>=(Registro);
     bool operator>(int);
     bool operator==(int);
     bool operator!=(int);
@@ -56,10 +57,17 @@ int Registro::getClaveOrden(){
     return claveOrden;
 }
 
-bool Registro::operator<(int n){
-    if(claveOrden < n)
+bool Registro::operator<=(Registro r){
+    if(claveOrden <= r.claveOrden)
         return true;
+    
+    return false;
+}
 
+bool Registro::operator>=(Registro r){
+    if(claveOrden >= r.claveOrden)
+        return true;
+    
     return false;
 }
 

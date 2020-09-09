@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -7,7 +8,7 @@ using namespace std;
 
 #include "Registro.h"
 
-void cargaRegistros(vector<Registro*> &vecRegistros){
+void cargaRegistros(vector<Registro*> &v){
     string mes;
     int dia;
     string hora;
@@ -18,7 +19,7 @@ void cargaRegistros(vector<Registro*> &vecRegistros){
     
     while(archivo >> mes >> dia >> hora >> direccionIP){
         getline(archivo, razon);
-        vecRegistros.push_back(new Registro(mes, dia, hora, direccionIP, razon));
+        v.push_back(new Registro(mes, dia, hora, direccionIP, razon));
     }
     
     archivo.close();  
@@ -37,6 +38,38 @@ int clave(string mes, int dia){
     return 1000 + dia;
 }
 
+void unir(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin){
+    int mit = (ini + fin) / 2;
+    int i = ini, j = mit+1, k = ini;
+
+    while(i <= mit && j <= fin)
+        if(*v[i] <= *v[j])
+            paso[k++] = v[i++];
+        else
+            paso[k++] = v[j++];
+    
+    while(i <= mit)
+        paso[k++] = v[i++];
+    
+    while(j <= fin)
+        paso[k++] = v[j++];
+    
+    for(int z = ini; z <= fin; z++)
+        v[z] = paso[z];
+}
+
+void ordenaMerge(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin){
+    int mit;
+
+    if(ini < fin){
+        mit = (ini + fin) / 2;
+
+        ordenaMerge(v, paso, ini, mit);
+        ordenaMerge(v, paso, mit+1, fin);
+        unir(v, paso, ini, fin);
+    }
+}
+
 int busquedaBinaria(vector<Registro*> v, int dato, bool inicio){
     int tam = v.size(), ini = 0, fin = tam - 1,  mit;
     while (ini <= fin){
@@ -47,29 +80,29 @@ int busquedaBinaria(vector<Registro*> v, int dato, bool inicio){
                 if(mit == 0 || *v[mit-1] != dato)
                     return mit;
                 
-                fin = --mit;
+                fin = mit + 1;
             } else{
                 if(mit == tam-1 || *v[mit+1] != dato)
                     return mit;
 
-                ini = ++mit;
+                ini = mit + 1;
             }
         } else if(*v[mit] > dato)
-            fin = --mit;
+            fin = mit + 1;
 
         else
-            ini = ++mit;
+            ini = mit + 1;
     }  
     
     return -1;
 }
 
-void busqueda(vector<Registro*> vec, string mesI, string mesF, int diaI, int diaF){
+void busqueda(vector<Registro*> v, string mesI, string mesF, int diaI, int diaF){
     int ini = clave(mesI, diaI), posInicial;
     int fin = clave(mesF, diaF), posFinal;
 
-    posInicial = busquedaBinaria(vec, ini, true);
-    posFinal = busquedaBinaria(vec, fin, false);
+    posInicial = busquedaBinaria(v, ini, true);
+    posFinal = busquedaBinaria(v, fin, false);
 
     if(posInicial == -1)
         cout << "La fecha " << mesI << ' ' << diaI << " no existe en el registro." << endl;
@@ -77,14 +110,14 @@ void busqueda(vector<Registro*> vec, string mesI, string mesF, int diaI, int dia
         cout << "La fecha " << mesF << ' ' << diaF << " no existe en el registro." << endl;
     else
         for(int i = posInicial; i<=posFinal; i++)
-            cout <<  *vec[i];
+            cout <<  *v[i];
 }
 
-void exportarRegistros(vector<Registro*> vecRegistros, string nombreArchivo){
+void exportarRegistros(vector<Registro*> v, string nombreArchivo){
     ofstream archivo(nombreArchivo);
 
-    for(int i = 0; i < vecRegistros.size(); i++)
-        archivo << *vecRegistros[i];
+    for(int i = 0; i < v.size(); i++)
+        archivo << *v[i];
 
     archivo.close();
 }
@@ -92,6 +125,8 @@ void exportarRegistros(vector<Registro*> vecRegistros, string nombreArchivo){
 int main(){
     vector<Registro*> vecRegistros;
     cargaRegistros(vecRegistros);
+    int tam = vecRegistros.size();
+    vector<Registro*> paso(tam);
 
     int diaI, diaF;
     string mesI, mesF, nombreArchivo;
@@ -109,7 +144,7 @@ int main(){
 
     switch(opcion){
         case '1':{ //Ordena información
-
+            ordenaMerge(vecRegistros, paso, 0, tam-1);
             break;
         }
         case '2':{ //Busqueda
