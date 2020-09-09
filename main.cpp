@@ -7,7 +7,6 @@ using namespace std;
 
 #include "Registro.h"
 
-
 void cargaRegistros(vector<Registro*> &vecRegistros){
     string mes;
     int dia;
@@ -38,55 +37,51 @@ int clave(string mes, int dia){
     return 1000 + dia;
 }
 
-int busqeudaBinariaIni(vector<Registro*> v, int dato, bool inicio ){
-    int ini = 0, fin = v.size() - 1,  mit;
-
-    bool flag = true;
-
+int busquedaBinaria(vector<Registro*> v, int dato, bool inicio){
+    int tam = v.size(), ini = 0, fin = tam - 1,  mit;
     while (ini <= fin){
         mit = (ini + fin) / 2;
 
         if (*v[mit] == dato){
-            if(inicio && flag == true){
-                while(*v[mit] == dato){
-                    mit--;
-                }
-                flag = false;
-            }
-            else if(!inicio && flag == true){
-                while(*v[mit] == dato){
-                    mit++;
-                }
-                flag = false;
-            }
-            return mit;
-        }
-        else if(*v[mit] > dato){
-            fin = mit - 1;
-        }
-        else{
-            ini = mit + 1;
-        }
-    }
-    return -1;
+            if(inicio){
+                if(mit == 0 || *v[mit-1] != dato)
+                    return mit;
+                
+                fin = --mit;
+            } else{
+                if(mit == tam-1 || *v[mit+1] != dato)
+                    return mit;
 
+                ini = ++mit;
+            }
+        } else if(*v[mit] > dato)
+            fin = --mit;
+
+        else
+            ini = ++mit;
+    }  
+    
+    return -1;
 }
 
 void busqueda(vector<Registro*> vec, string mesI, string mesF, int diaI, int diaF){
     int ini = clave(mesI, diaI), posInicial;
     int fin = clave(mesF, diaF), posFinal;
 
-    posInicial = busqeudaBinariaIni(vec, ini, true);
-    posFinal = busqeudaBinariaIni(vec, fin, false);
+    posInicial = busquedaBinaria(vec, ini, true);
+    posFinal = busquedaBinaria(vec, fin, false);
 
-    for(int i = posInicial; i<posFinal; i++){
-        cout <<  vec[i];
-    }
-
+    if(posInicial == -1)
+        cout << "La fecha " << mesI << ' ' << diaI << " no existe en el registro." << endl;
+    else if(posFinal == -1)
+        cout << "La fecha " << mesF << ' ' << diaF << " no existe en el registro." << endl;
+    else
+        for(int i = posInicial; i<=posFinal; i++)
+            cout <<  *vec[i];
 }
 
 void exportarRegistros(vector<Registro*> vecRegistros, string nombreArchivo){
-    ofstream archivo(nombreArchivo, ofstream::app);
+    ofstream archivo(nombreArchivo);
 
     for(int i = 0; i < vecRegistros.size(); i++)
         archivo << *vecRegistros[i];
@@ -118,7 +113,7 @@ int main(){
             break;
         }
         case '2':{ //Busqueda
-            cout << "Fecha inicial: (ej. aug 10)" << endl;
+            cout << "Fecha inicial: (ej. aug 10):" << endl;
             cin >> mesI >> diaI;
 
             cout << endl << "Fecha Final: " << endl;
@@ -128,20 +123,14 @@ int main(){
             break;
         }
         case '3':{  //Almanecar datos ordenados en archivo nuevo
-
+            cout << "Tecléa el nombre del archivo en el que deseas almacenar los registros ordenados: ";
+            cin >> nombreArchivo;
+            exportarRegistros(vecRegistros, nombreArchivo);
             break;
         }
     }
 
     } while( opcion != '0');
 
-
-
     return 0;
-    busqueda(vecRegistros, mesI, mesF, diaI, diaF);
-
-    cout << "Tecléa el nombre del archivo en el que deseas almacenar los registros ordenados: ";
-    cin >> nombreArchivo;
-    exportarRegistros(vecRegistros, nombreArchivo);
-
 }
