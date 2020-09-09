@@ -89,7 +89,7 @@ int busquedaBinaria(vector<Registro*> v, int dato, bool inicio){
                 if(mit == 0 || *v[mit-1] != dato)
                     return mit;
                 
-                fin = mit + 1;
+                fin = mit - 1;
             } else{
                 if(mit == tam-1 || *v[mit+1] != dato)
                     return mit;
@@ -97,7 +97,7 @@ int busquedaBinaria(vector<Registro*> v, int dato, bool inicio){
                 ini = mit + 1;
             }
         } else if(*v[mit] > dato)
-            fin = mit + 1;
+            fin = mit - 1;
 
         else
             ini = mit + 1;
