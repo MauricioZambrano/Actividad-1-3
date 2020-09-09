@@ -1,3 +1,12 @@
+/*
+ * Programación de estructuras de datos y algoritmos fundamentales
+ * Actividad 1.3 - Actividad integral de conceptos básicos y algoritmos fundamentales
+ * Fernando Doddoli Lankenau - A00827038
+ * Mauricio Eugenio Zambrano Díaz - A00827055
+ * Cristóbal Alberto Escamilla Sada - A00827074
+ * 11 de septiembre del 2020
+ */
+
 #include <algorithm>
 #include <iostream>
 #include <fstream>
