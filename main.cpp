@@ -57,10 +57,14 @@ int clave(string mes, int dia){
     return -1;
 }
 
+<<<<<<< Updated upstream
 // Ordena y une los datos proporcionados en un vector
 // Llamada a través de la función ordenaMerge
 // Regresa el número de comparaciones realizadas por la función
 // Complejidad: O(n)
+=======
+//Complejidad: O(n)
+>>>>>>> Stashed changes
 void unir(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin){
     int mit = (ini + fin) / 2;
     int i = ini, j = mit+1, k = ini;
@@ -81,10 +85,14 @@ void unir(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin){
         v[z] = paso[z];
 }
 
+<<<<<<< Updated upstream
 // Ordena los datos proporcionados por el usuario a través del método merge
 // Opera de manera recursiva
 // Regresa el número de comparaciones realizadas por la función
 // Complejidad: O(nlog n)
+=======
+//Complejidad: O(n*logn)
+>>>>>>> Stashed changes
 void ordenaMerge(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin){
     int mit;
 
@@ -97,6 +105,8 @@ void ordenaMerge(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin
     }
 }
 
+//Función que busca una fecha usando su clave
+//Complejidad:(logn)
 int busquedaBinaria(vector<Registro*> v, int dato, bool inicio){
     int tam = v.size(), ini = 0, fin = tam - 1,  mit;
     while (ini <= fin){
@@ -124,6 +134,8 @@ int busquedaBinaria(vector<Registro*> v, int dato, bool inicio){
     return -1;
 }
 
+//Descripción: Función que busca las fechas en un rango correspondiente y despliegue los registros correspondientes a esas fechas
+//Complejidad: O(n)
 void busqueda(vector<Registro*> v, string mesI, string mesF, int diaI, int diaF){
     int ini = claveOrden(mesI, diaI), posInicial;
     int fin = claveOrden(mesF, diaF), posFinal;
