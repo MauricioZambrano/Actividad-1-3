@@ -11,6 +11,7 @@ private:
     int claveOrden;
 public:
     Registro(string, int, string, string, string);
+    string getDireccionIP();
     int crearClave(string, int);
     bool operator<=(Registro);
     bool operator>=(Registro);
@@ -27,6 +28,10 @@ Registro::Registro(string mes, int dia, string hora, string direccionIP, string 
     this->direccionIP = direccionIP;
     this->razon = razon;
     claveOrden = crearClave(mes, dia);
+}
+
+string Registro::getDireccionIP(){
+    return direccionIP;
 }
 
 int Registro::crearClave(string mes, int dia){
