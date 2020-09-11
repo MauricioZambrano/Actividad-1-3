@@ -1,9 +1,13 @@
 /*
  * Programación de estructuras de datos y algoritmos fundamentales
  * Actividad 1.3 - Actividad integral de conceptos básicos y algoritmos fundamentales
+ * 
+ * Equipo 13
+ * 
  * Fernando Doddoli Lankenau - A00827038
  * Mauricio Eugenio Zambrano Díaz - A00827055
  * Cristóbal Alberto Escamilla Sada - A00827074
+ * 
  * 11 de septiembre del 2020
  */
 
@@ -17,6 +21,8 @@ using namespace std;
 
 #include "Registro.h"
 
+//Cargar los registros de el archivo .txt a un vector de Registros con sus respectivos atributos
+//Complejidad: O(n)
 void cargaRegistros(vector<Registro*> &v){
     string mes;
     int dia;
@@ -34,6 +40,8 @@ void cargaRegistros(vector<Registro*> &v){
     archivo.close();  
 }
 
+//Crea una clave para ponerle un valor numérico a la fecha para facilitar las comparaciones
+//Complejidad: O(1)
 int clave(string mes, int dia){
     if(mes == "Jun")
         return 600 + dia;
@@ -89,7 +97,7 @@ int busquedaBinaria(vector<Registro*> v, int dato, bool inicio){
                 if(mit == 0 || *v[mit-1] != dato)
                     return mit;
                 
-                fin = mit - 1;
+                fin = mit + 1;
             } else{
                 if(mit == tam-1 || *v[mit+1] != dato)
                     return mit;
@@ -97,7 +105,7 @@ int busquedaBinaria(vector<Registro*> v, int dato, bool inicio){
                 ini = mit + 1;
             }
         } else if(*v[mit] > dato)
-            fin = mit - 1;
+            fin = mit + 1;
 
         else
             ini = mit + 1;
