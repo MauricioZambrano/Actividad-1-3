@@ -51,10 +51,16 @@ int clave(string mes, int dia){
         return 800 + dia;
     if(mes == "Sep")
         return 900 + dia;
-        
-    return 1000 + dia;
+    if(mes == "Oct")
+        return 1000 + dia;
+    
+    return -1;
 }
 
+// Ordena y une los datos proporcionados en un vector
+// Llamada a través de la función ordenaMerge
+// Regresa el número de comparaciones realizadas por la función
+// Complejidad: O(n)
 void unir(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin){
     int mit = (ini + fin) / 2;
     int i = ini, j = mit+1, k = ini;
@@ -75,6 +81,10 @@ void unir(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin){
         v[z] = paso[z];
 }
 
+// Ordena los datos proporcionados por el usuario a través del método merge
+// Opera de manera recursiva
+// Regresa el número de comparaciones realizadas por la función
+// Complejidad: O(nlog n)
 void ordenaMerge(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin){
     int mit;
 
@@ -115,8 +125,8 @@ int busquedaBinaria(vector<Registro*> v, int dato, bool inicio){
 }
 
 void busqueda(vector<Registro*> v, string mesI, string mesF, int diaI, int diaF){
-    int ini = clave(mesI, diaI), posInicial;
-    int fin = clave(mesF, diaF), posFinal;
+    int ini = claveOrden(mesI, diaI), posInicial;
+    int fin = claveOrden(mesF, diaF), posFinal;
 
     posInicial = busquedaBinaria(v, ini, true);
     posFinal = busquedaBinaria(v, fin, false);
@@ -132,9 +142,12 @@ void busqueda(vector<Registro*> v, string mesI, string mesF, int diaI, int diaF)
 
 void exportarRegistros(vector<Registro*> v, string nombreArchivo){
     ofstream archivo(nombreArchivo);
+    int tam = v.size();
 
-    for(int i = 0; i < v.size(); i++)
-        archivo << *v[i];
+    for(int i = 0; i < tam-1; i++)
+        archivo << *v[i] << endl;
+    
+    archivo << *v[tam-1];
 
     archivo.close();
 }
@@ -142,47 +155,46 @@ void exportarRegistros(vector<Registro*> v, string nombreArchivo){
 int main(){
     vector<Registro*> vecRegistros;
     cargaRegistros(vecRegistros);
+
     int tam = vecRegistros.size();
     vector<Registro*> paso(tam);
 
+    ordenaMerge(vecRegistros, paso, 0, tam-1);
+
     int diaI, diaF;
     string mesI, mesF, nombreArchivo;
-
     char opcion;
 
     cout << "Bienvenid@ a la Bitacora de Errores! Seleccione la acción que desea ejectuar:" << endl;
-    cout << "1) Ordenar información de bitacora" << endl;
-    cout << "2) Buscar un rango de datos basado en fechas" << endl;
-    cout << "3) Transpasar datos ordenados a nuevo archivo" << endl;
+    cout << "1) Buscar un rango de datos basado en fechas" << endl;
+    cout << "2) Transpasar datos ordenados a nuevo archivo" << endl;
     cout << "0) Salir" << endl;
-    do{
     
-    cin >> opcion;
+    do{
+        cin >> opcion;
 
-    switch(opcion){
-        case '1':{ //Ordena información
-            ordenaMerge(vecRegistros, paso, 0, tam-1);
-            break;
-        }
-        case '2':{ //Busqueda
-            cout << "Fecha inicial: (ej. aug 10):" << endl;
-            cin >> mesI >> diaI;
+        switch(opcion){
+            case '1':
+                cout << "Fecha inicial (ej. Aug 10, recuerde de teclear la primera letra del mes como mayúscula): ";
+                cin >> mesI >> diaI;
 
-            cout << endl << "Fecha Final: " << endl;
-            cin >> mesF >> diaF;
+                cout << endl << "Fecha Final: ";
+                cin >> mesF >> diaF;
 
-            busqueda(vecRegistros, mesI, mesF, diaI, diaF);
-            break;
+                busqueda(vecRegistros, mesI, mesF, diaI, diaF);
+                break;
+            
+            case '2':
+                cout << "Tecléa el nombre del archivo en el que deseas almacenar los registros ordenados: ";
+                cin >> nombreArchivo;
+                exportarRegistros(vecRegistros, nombreArchivo);
+                break;
+            
         }
-        case '3':{  //Almanecar datos ordenados en archivo nuevo
-            cout << "Tecléa el nombre del archivo en el que deseas almacenar los registros ordenados: ";
-            cin >> nombreArchivo;
-            exportarRegistros(vecRegistros, nombreArchivo);
-            break;
-        }
-    }
 
     } while( opcion != '0');
+
+    cout << endl << "¡Hasta la próxima!" << endl;
 
     return 0;
 }
