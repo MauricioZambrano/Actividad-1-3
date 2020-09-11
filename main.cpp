@@ -109,18 +109,18 @@ int busquedaBinaria(vector<Registro*> v, int dato, bool inicio){
                 if(mit == 0 || *v[mit-1] != dato)
                     return mit;
                 
-                fin = mit + 1;
+                fin = mit - 1;
             } else{
                 if(mit == tam-1 || *v[mit+1] != dato)
                     return mit;
 
-                ini = mit - 1;
+                ini = mit + 1;
             }
         } else if(*v[mit] > dato)
-            fin = mit + 1;
+            fin = mit - 1;
 
         else
-            ini = mit - 1;
+            ini = mit + 1;
     }  
     
     return -1;
@@ -175,7 +175,7 @@ int main(){
     
     
     do{
-        cout << "Bienvenid@ a la Bitacora de Errores! Seleccione la acción que desea ejectuar:" << endl;
+        cout << endl << "Bienvenid@ a la Bitacora de Errores! Seleccione la acción que desea ejectuar:" << endl;
         cout << "1) Buscar un rango de datos basado en fechas" << endl;
         cout << "2) Transpasar datos ordenados a nuevo archivo" << endl;
         cout << "0) Salir" << endl;
