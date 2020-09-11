@@ -12,9 +12,6 @@ private:
 public:
     Registro(string, int, string, string, string);
     int crearClave(string, int);
-    string getMes();
-    int getDia();
-    int getClaveOrden();
     bool operator<=(Registro);
     bool operator>=(Registro);
     bool operator>(int);
@@ -41,20 +38,10 @@ int Registro::crearClave(string mes, int dia){
         return 800 + dia;
     if(mes == "Sep")
         return 900 + dia;
-    
+    if(mes == "Oct")
         return 1000 + dia;
-}
 
-string Registro::getMes(){
-    return mes;
-}
-
-int Registro::getDia(){
-    return dia;
-}
-
-int Registro::getClaveOrden(){
-    return claveOrden;
+    return -1;
 }
 
 bool Registro::operator<=(Registro r){
@@ -93,7 +80,7 @@ bool Registro::operator!=(int n){
 }
 
 ostream& operator<<(ostream& os, Registro r){
-    os  << r.mes << ' ' << r.dia << ' ' << r.hora << ' ' << r.direccionIP << r.razon << endl;
+    os  << r.mes << ' ' << r.dia << ' ' << r.hora << ' ' << r.direccionIP << r.razon;
 
     return os;
 }
