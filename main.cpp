@@ -114,13 +114,13 @@ int busquedaBinaria(vector<Registro*> v, int dato, bool inicio){
                 if(mit == tam-1 || *v[mit+1] != dato)
                     return mit;
 
-                ini = mit + 1;
+                ini = mit - 1;
             }
         } else if(*v[mit] > dato)
             fin = mit + 1;
 
         else
-            ini = mit + 1;
+            ini = mit - 1;
     }  
     
     return -1;
@@ -141,7 +141,7 @@ void busqueda(vector<Registro*> v, string mesI, string mesF, int diaI, int diaF)
         cout << "La fecha " << mesF << ' ' << diaF << " no existe en el registro." << endl;
     else
         for(int i = posInicial; i<=posFinal; i++)
-            cout <<  *v[i];
+            cout <<  *v[i] << endl;
 }
 
 //Descripción: Función que guarda los registros ordenados en un archivo nuevo
@@ -172,12 +172,13 @@ int main(){
     string mesI, mesF, nombreArchivo;
     char opcion;
 
-    cout << "Bienvenid@ a la Bitacora de Errores! Seleccione la acción que desea ejectuar:" << endl;
-    cout << "1) Buscar un rango de datos basado en fechas" << endl;
-    cout << "2) Transpasar datos ordenados a nuevo archivo" << endl;
-    cout << "0) Salir" << endl;
+    
     
     do{
+        cout << "Bienvenid@ a la Bitacora de Errores! Seleccione la acción que desea ejectuar:" << endl;
+        cout << "1) Buscar un rango de datos basado en fechas" << endl;
+        cout << "2) Transpasar datos ordenados a nuevo archivo" << endl;
+        cout << "0) Salir" << endl;
         cin >> opcion;
 
         switch(opcion){
