@@ -11,7 +11,6 @@
  * 11 de septiembre del 2020
  */
 
-#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -21,8 +20,8 @@ using namespace std;
 
 #include "Registro.h"
 
-//Cargar los registros de el archivo .txt a un vector de Registros con sus respectivos atributos
-//Complejidad: O(n)
+// Cargar los registros de el archivo .txt a un vector de Registros con sus respectivos atributos
+// Complejidad: O(n)
 void cargaRegistros(vector<Registro*> &v){
     string mes;
     int dia;
@@ -40,8 +39,8 @@ void cargaRegistros(vector<Registro*> &v){
     archivo.close();  
 }
 
-//Crea una clave para ponerle un valor numérico a la fecha para facilitar las comparaciones
-//Complejidad: O(1)
+// Crea una clave para ponerle un valor numérico a la fecha para facilitar las comparaciones
+// Complejidad: O(1)
 int claveOrden(string mes, int dia){
     if(mes == "Jun")
         return 600 + dia;
@@ -59,7 +58,6 @@ int claveOrden(string mes, int dia){
 
 // Ordena y une los datos proporcionados en un vector
 // Llamada a través de la función ordenaMerge
-// Regresa el número de comparaciones realizadas por la función
 // Complejidad: O(n)
 void unir(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin){
     int mit = (ini + fin) / 2;
@@ -83,7 +81,6 @@ void unir(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin){
 
 // Ordena los datos proporcionados por el usuario a través del método merge
 // Opera de manera recursiva
-// Regresa el número de comparaciones realizadas por la función
 // Complejidad: O(nlog n)
 void ordenaMerge(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin){
     int mit;
@@ -97,10 +94,11 @@ void ordenaMerge(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin
     }
 }
 
-//Función que busca una fecha usando su clave
-//Complejidad:(logn)
+// Función que busca una fecha usando su clave
+// Complejidad:(log n)
 int busquedaBinaria(vector<Registro*> v, int dato, bool inicio){
     int tam = v.size(), ini = 0, fin = tam - 1,  mit;
+    
     while (ini <= fin){
         mit = (ini + fin) / 2;
 
@@ -126,8 +124,8 @@ int busquedaBinaria(vector<Registro*> v, int dato, bool inicio){
     return -1;
 }
 
-//Descripción: Función que busca las fechas en un rango correspondiente y despliegue los registros correspondientes a esas fechas
-//Complejidad: O(n)
+// Descripción: Función que busca las fechas en un rango correspondiente y despliegue los registros correspondientes a esas fechas
+// Complejidad: O(n)
 void busqueda(vector<Registro*> v, string mesI, string mesF, int diaI, int diaF){
     int ini = claveOrden(mesI, diaI), posInicial;
     int fin = claveOrden(mesF, diaF), posFinal;
@@ -144,8 +142,8 @@ void busqueda(vector<Registro*> v, string mesI, string mesF, int diaI, int diaF)
             cout <<  *v[i] << endl;
 }
 
-//Descripción: Función que guarda los registros ordenados en un archivo nuevo
-//Complejidad: O(n)
+// Descripción: Función que guarda los registros ordenados en un archivo nuevo
+// Complejidad: O(n)
 void exportarRegistros(vector<Registro*> v, string nombreArchivo){
     ofstream archivo(nombreArchivo);
     int tam = v.size();
@@ -165,7 +163,7 @@ int main(){
     int tam = vecRegistros.size();
     vector<Registro*> paso(tam);
 
-    //Ordena los datos antes de desplegar menú
+    // Ordena los datos antes de desplegar menú
     ordenaMerge(vecRegistros, paso, 0, tam-1);
 
     int diaI, diaF;
@@ -182,18 +180,18 @@ int main(){
         cin >> opcion;
 
         switch(opcion){
-            case '1':   //Buscar un rango de datos basado en fechas
-                cout << "Fecha inicial (ej. Aug 10, recuerde de teclear la primera letra del mes como mayúscula): ";
+            case '1':   // Buscar un rango de datos basado en fechas
+                cout << endl << "Fecha inicial (ej. Aug 10, recuerde de teclear la primera letra del mes como mayúscula): ";
                 cin >> mesI >> diaI;
 
-                cout << endl << "Fecha Final: ";
+                cout << "Fecha Final: ";
                 cin >> mesF >> diaF;
 
                 busqueda(vecRegistros, mesI, mesF, diaI, diaF);
                 break;
             
-            case '2':   //Transpasar datos ordenados a nuevo archivo
-                cout << "Tecléa el nombre del archivo en el que deseas almacenar los registros ordenados: ";
+            case '2':   // Transpasar datos ordenados a nuevo archivo
+                cout << endl << "Tecléa el nombre del archivo en el que deseas almacenar los registros ordenados (Recuerde de agregar el sufijo \'.txt\'): ";
                 cin >> nombreArchivo;
                 exportarRegistros(vecRegistros, nombreArchivo);
                 break;
@@ -202,7 +200,7 @@ int main(){
 
     } while( opcion != '0');
 
-    cout << endl << "¡Hasta la próxima!" << endl;
+    cout << endl << "¡Hasta la próxima!" << endl << endl;
 
     return 0;
 }
