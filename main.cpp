@@ -42,7 +42,7 @@ void cargaRegistros(vector<Registro*> &v){
 
 //Crea una clave para ponerle un valor numérico a la fecha para facilitar las comparaciones
 //Complejidad: O(1)
-int clave(string mes, int dia){
+int claveOrden(string mes, int dia){
     if(mes == "Jun")
         return 600 + dia;
     if(mes == "Jul")
@@ -57,14 +57,10 @@ int clave(string mes, int dia){
     return -1;
 }
 
-<<<<<<< Updated upstream
 // Ordena y une los datos proporcionados en un vector
 // Llamada a través de la función ordenaMerge
 // Regresa el número de comparaciones realizadas por la función
 // Complejidad: O(n)
-=======
-//Complejidad: O(n)
->>>>>>> Stashed changes
 void unir(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin){
     int mit = (ini + fin) / 2;
     int i = ini, j = mit+1, k = ini;
@@ -85,14 +81,10 @@ void unir(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin){
         v[z] = paso[z];
 }
 
-<<<<<<< Updated upstream
 // Ordena los datos proporcionados por el usuario a través del método merge
 // Opera de manera recursiva
 // Regresa el número de comparaciones realizadas por la función
 // Complejidad: O(nlog n)
-=======
-//Complejidad: O(n*logn)
->>>>>>> Stashed changes
 void ordenaMerge(vector<Registro*> &v, vector<Registro*> &paso, int ini, int fin){
     int mit;
 
@@ -173,6 +165,7 @@ int main(){
     int tam = vecRegistros.size();
     vector<Registro*> paso(tam);
 
+    //Ordena los datos antes de desplegar menú
     ordenaMerge(vecRegistros, paso, 0, tam-1);
 
     int diaI, diaF;
@@ -188,7 +181,7 @@ int main(){
         cin >> opcion;
 
         switch(opcion){
-            case '1':
+            case '1':   //Buscar un rango de datos basado en fechas
                 cout << "Fecha inicial (ej. Aug 10, recuerde de teclear la primera letra del mes como mayúscula): ";
                 cin >> mesI >> diaI;
 
@@ -198,7 +191,7 @@ int main(){
                 busqueda(vecRegistros, mesI, mesF, diaI, diaF);
                 break;
             
-            case '2':
+            case '2':   //Transpasar datos ordenados a nuevo archivo
                 cout << "Tecléa el nombre del archivo en el que deseas almacenar los registros ordenados: ";
                 cin >> nombreArchivo;
                 exportarRegistros(vecRegistros, nombreArchivo);
