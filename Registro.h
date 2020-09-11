@@ -1,3 +1,16 @@
+/*
+ * Programación de estructuras de datos y algoritmos fundamentales
+ * Clase Registro implementada en Actividad 1.3
+ * 
+ * Equipo 13
+ * 
+ * Fernando Doddoli Lankenau - A00827038
+ * Mauricio Eugenio Zambrano Díaz - A00827055
+ * Cristóbal Alberto Escamilla Sada - A00827074
+ * 
+ * 11 de septiembre del 2020
+ */
+
 #ifndef Registro_h
 #define Registro_h
 
@@ -11,10 +24,8 @@ private:
     int claveOrden;
 public:
     Registro(string, int, string, string, string);
-    string getDireccionIP();
     int crearClave(string, int);
     bool operator<=(Registro);
-    bool operator>=(Registro);
     bool operator>(int);
     bool operator==(int);
     bool operator!=(int);
@@ -28,10 +39,6 @@ Registro::Registro(string mes, int dia, string hora, string direccionIP, string 
     this->direccionIP = direccionIP;
     this->razon = razon;
     claveOrden = crearClave(mes, dia);
-}
-
-string Registro::getDireccionIP(){
-    return direccionIP;
 }
 
 int Registro::crearClave(string mes, int dia){
@@ -51,13 +58,6 @@ int Registro::crearClave(string mes, int dia){
 
 bool Registro::operator<=(Registro r){
     if(claveOrden <= r.claveOrden)
-        return true;
-    
-    return false;
-}
-
-bool Registro::operator>=(Registro r){
-    if(claveOrden >= r.claveOrden)
         return true;
     
     return false;

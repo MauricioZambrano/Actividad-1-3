@@ -133,6 +133,8 @@ void busqueda(vector<Registro*> v, string mesI, string mesF, int diaI, int diaF)
     posInicial = busquedaBinaria(v, ini, true);
     posFinal = busquedaBinaria(v, fin, false);
 
+    cout << endl;
+    
     if(posInicial == -1)
         cout << "La fecha " << mesI << ' ' << diaI << " no existe en el registro." << endl;
     else if(posFinal == -1)
