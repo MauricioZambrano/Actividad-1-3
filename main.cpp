@@ -152,6 +152,8 @@ void busqueda(vector<Registro*> v, string mesI, string mesF, int diaI, int diaF)
             cout <<  *v[i];
 }
 
+//Descripción: Función que guarda los registros ordenados en un archivo nuevo
+//Complejidad: O(n)
 void exportarRegistros(vector<Registro*> v, string nombreArchivo){
     ofstream archivo(nombreArchivo);
     int tam = v.size();
